@@ -19,13 +19,7 @@ client.on('guildMemberAdd', async member => {
 
   const embed = new EmbedBuilder()
     .setTitle("🥧 Vérification des Pâtés Lorrains")
-    .setDescription(`Bienvenue **${member.user.username}** !
-
-Ce serveur est réservé aux **18 ans et +**.
-
-**Code de vérification :** \`${code}\`
-
-Merci de répondre avec ce code, puis ton **âge**.`)
+    .setDescription(`Bienvenue **${member.user.username}** !\n\nCe serveur est réservé aux **18 ans et +**.\n\n**Code de vérification :** \`${code}\`\n\nMerci de répondre avec ce code, puis ton **âge**.`)
     .setColor(0xFFA500)
     .setImage('https://i.ibb.co/kWr3PZn/e42e854f1dd3.png')
     .setFooter({ text: "Réponds ici dans les 60 secondes." });
@@ -36,7 +30,6 @@ Merci de répondre avec ce code, puis ton **âge**.`)
   const collector = dm.channel.createMessageCollector({ filter, time: 60000, max: 2 });
 
   let step = 0;
-  let valid = false;
 
   collector.on('collect', async msg => {
     if (step === 0 && msg.content.trim().toUpperCase() === code) {
@@ -64,10 +57,11 @@ Merci de répondre avec ce code, puis ton **âge**.`)
           logChannel.send(`✅ ${member.user.tag} a passé la vérification avec succès.`);
         }
       }
-    } else {
+    } else if (step === 0) {
       await dm.send("❌ Code incorrect. Réessaie ou contacte le staff.");
     }
   });
 });
 
+console.log("Token utilisé :", process.env.TOKEN ? "OK ✅" : "Manquant ❌");
 client.login(process.env.TOKEN);
