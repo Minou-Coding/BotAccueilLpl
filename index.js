@@ -13,7 +13,7 @@ const client = new Client({
 
 const ROLE_NON_VERIFIE = 'Non vérifié';
 const ROLE_VERIFIE = '🟤 Visiteur';
-const CHANNEL_ACCUEIL = '🚪-accueil';
+const CHANNEL_ACCUEIL = '🔑｜acces-serveur';
 
 client.once('ready', () => {
   console.log(`🤖 Bot connecté en tant que ${client.user.tag}`);
